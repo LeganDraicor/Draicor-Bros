@@ -3,215 +3,100 @@
     -webkit-tap-highlight-color: transparent;
 }
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #000;
-    font-family: "Press Start 2P", cursive;
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden; background-color: #000; font-family: "Press Start 2P", cursive;
 }
-#game-container {
-    position: relative;
-    border: 4px solid #555;
-    box-shadow: 0 0 20px #00000080;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    max-width: 960px;
-    max-height: 720px;
+
+#game-container{
+    position:relative; border:4px solid #555; box-shadow:0 0 20px #00000080;
+    display: flex; flex-direction: column;
+    width: 100%; height: 100%;
+    max-width: 960px; max-height: 720px;
 }
 body.mobile #game-container {
     max-width: none;
     max-height: none;
 }
-canvas {
-    display: block;
-    background-color: #000;
-    width: 100%;
-    height: 100%;
+
+canvas{
+    display:block; background-color:#000;
+    width: 100%; height: 100%;
 }
-#message-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000000b3;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    z-index: 10;
-}
-#message-overlay.hidden {
-    display: none !important;
-}
-#message-title {
-    font-size: 3em;
-    margin-bottom: .5em;
-    color: #ffdc00;
-    text-shadow: 3px 3px 0 #ff4136;
-}
-#message-text {
-    font-size: 1.2em;
-    margin-bottom: 1.5em;
-    max-width: 80%;
-    line-height: 1.5;
-}
-#start-button {
-    padding: 15px 30px;
-    font-family: "Press Start 2P", cursive;
-    font-size: 1.2em;
-    color: #fff;
-    background-color: #0074d9;
-    border: 3px solid #fff;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all .2s ease;
-}
-#start-button:hover {
-    background-color: #7fdbff;
-    color: #000;
-    transform: translateY(-3px);
-    box-shadow: 0 5px #fff;
-}
-#start-button:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-.hidden {
-    visibility: hidden;
-}
+#message-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000000b3;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:10}
+#message-overlay.hidden{display:none !important;}
+#message-title{font-size:3em;margin-bottom:.5em;color:#ffdc00;text-shadow:3px 3px 0 #ff4136}
+#message-text{font-size:1.2em;margin-bottom:1.5em;max-width:80%;line-height:1.5}
+#start-button{padding:15px 30px;font-family:"Press Start 2P",cursive;font-size:1.2em;color:#fff;background-color:#0074d9;border:3px solid #fff;border-radius:8px;cursor:pointer;text-transform:uppercase;transition:all .2s ease}
+#start-button:hover{background-color:#7fdbff;color:#000;transform:translateY(-3px);box-shadow:0 5px #fff}
+#start-button:active{transform:translateY(0);box-shadow:none}
+.hidden{visibility:hidden}
+
 #orientation-blocker {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    color: #fff;
-    z-index: 9999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 1.2em;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: #000; color: #fff; z-index: 9999;
+    display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-size: 1.2em;
 }
-@media (orientation: portrait) {
-    #orientation-blocker {
-        display: flex;
-    }
+#orientation-blocker svg { 
+    width: 64px; height: 64px; margin-bottom: 20px;
+    animation: rotate 1.5s linear infinite alternate;
 }
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(90deg); }
+}
+@media (orientation: portrait) { #orientation-blocker { display: flex; } }
+
 #main-layout {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
+    display: flex; width: 100vw; height: 100vh;
+    align-items: center; justify-content: center;
 }
 #game-canvas-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    height: 100%;
-    padding: 10px;
+    display: flex; justify-content: center; align-items: center;
+    flex-grow: 1; height: 100%; padding: 10px;
 }
 .touch-controls {
-    display: none;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    flex-shrink: 0;
-    width: 130px;
-    margin: 0 15px;
+    display: none; height: 100%; flex-direction: column;
+    justify-content: center; align-items: center; user-select: none;
+    flex-shrink: 0; width: 130px; margin: 0 15px;
 }
-body.mobile .touch-controls {
-    display: flex;
-}
-#dpad-container {
+body.mobile .touch-controls { display: flex; }
+
+#left-controls {
     position: relative;
-    width: 130px;
-    height: 130px;
+    left: 15px;
+    transform: translateY(70px);
 }
+
+#dpad-container { position: relative; width: 130px; height: 130px; }
 .dpad-button {
-    position: absolute;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.1s ease;
-    border-radius: 8px;
+    position: absolute; background-color: #fff; cursor: pointer;
+    transition: background-color 0.1s ease; border-radius: 8px;
 }
-.dpad-button:active {
-    background-color: #ccc;
-}
-.dpad-button.up, .dpad-button.down {
-    width: 44px;
-    height: 88px;
-    left: 43px;
-}
-.dpad-button.up {
-    top: 0;
-}
-.dpad-button.down {
-    bottom: 0;
-}
-.dpad-button.left, .dpad-button.right {
-    width: 88px;
-    height: 44px;
-    top: 43px;
-}
-.dpad-button.left {
-    left: 0;
-}
-.dpad-button.right {
-    right: 0;
-}
+.dpad-button:active { background-color: #ccc; }
+.dpad-button.up, .dpad-button.down { width: 44px; height: 88px; left: 43px; }
+.dpad-button.up { top: 0; }
+.dpad-button.down { bottom: 0; }
+.dpad-button.left, .dpad-button.right { width: 88px; height: 44px; top: 43px; }
+.dpad-button.left { left: 0; }
+.dpad-button.right { right: 0; }
+
 #right-controls {
-    gap: 30px;
+    justify-content: center;
+    gap: 40px;
+    transform: translateY(70px);
 }
-.action-buttons {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
+.action-buttons { display: flex; align-items: center; gap: 15px; }
 .round-button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
+    width: 60px; height: 60px; border-radius: 50%; background-color: #fff;
+    display: flex; justify-content: center; align-items: center;
+    color: #000; font-size: 24px; font-weight: bold; cursor: pointer;
     transition: background-color 0.1s ease;
 }
-.round-button:active {
-    background-color: #ccc;
-}
+.round-button:active { background-color: #ccc; }
 #button-start-touch {
-    width: 90px;
-    height: 30px;
-    background-color: #fff;
-    color: #000;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    letter-spacing: 1px;
-    cursor: pointer;
+    width: 90px; height: 30px; background-color: #fff; color: #000; border-radius: 20px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 12px; letter-spacing: 1px; cursor: pointer;
     transition: background-color 0.1s ease;
 }
-#button-start-touch:active {
-    background-color: #ccc;
-}
+#button-start-touch:active { background-color: #ccc; }
